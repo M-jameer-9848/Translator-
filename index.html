@@ -1,0 +1,487 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#07110d">
+<meta name="description" content="English Urdu Translator, Dictionary and Vocabulary Learning Hub by Muhammad Jameer.">
+<title>Jameer | English Urdu Learning Hub</title>
+
+<style>
+:root {
+  --bg:#07110d;
+  --panel:#0e1b15;
+  --panel2:#12251a;
+  --green:#39ff88;
+  --green2:#19c969;
+  --text:#e9fff0;
+  --muted:#91a99a;
+  --border:#244431;
+  --red:#ff7777;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--bg);color:var(--text);
+  font-family:system-ui,-apple-system,Arial,sans-serif;
+  min-height:100vh;
+}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+button:focus-visible,input:focus-visible,textarea:focus-visible{
+  outline:2px solid var(--green);outline-offset:3px
+}
+header{
+  padding:22px 16px 18px;text-align:center;
+  border-bottom:1px solid var(--border);
+  background:radial-gradient(ellipse at top,#153b25 0%,var(--bg) 75%);
+}
+.logo{
+  width:70px;height:70px;border:2px solid var(--green);
+  border-radius:50%;display:grid;place-items:center;
+  margin:0 auto 12px;color:var(--green);
+  font-size:27px;font-weight:900;
+  box-shadow:0 0 25px #39ff8830;
+}
+h1{font-size:clamp(23px,5vw,34px);margin:0;color:var(--green)}
+header p{color:var(--muted);margin:8px 0}
+.owner{font-weight:800;letter-spacing:1px;color:white}
+nav{
+  display:flex;gap:8px;justify-content:center;flex-wrap:wrap;
+  padding:12px;background:#09140e;
+  border-bottom:1px solid var(--border);
+  position:sticky;top:0;z-index:5
+}
+.navbtn,.btn{
+  border:1px solid var(--border);border-radius:10px;
+  padding:10px 13px;background:var(--panel2);color:var(--text)
+}
+.navbtn.active,.btn.primary{
+  background:var(--green);color:#041109;border-color:var(--green);
+  font-weight:800
+}
+main{width:min(850px,100%);margin:auto;padding:18px 13px 35px}
+.panel{
+  background:var(--panel);border:1px solid var(--border);
+  border-radius:16px;padding:17px;margin-bottom:15px;
+  box-shadow:0 8px 28px #0002
+}
+h2{font-size:20px;margin:0 0 8px}
+h3{font-size:16px;margin:0 0 9px}
+.sub{color:var(--muted);font-size:13px;line-height:1.6}
+textarea,input,select{
+  width:100%;background:#07130c;color:var(--text);
+  border:1px solid var(--border);border-radius:10px;
+  padding:13px;margin:8px 0
+}
+textarea{resize:vertical;min-height:125px}
+input::placeholder,textarea::placeholder{color:#799081}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.actions .btn{flex:1;min-width:100px}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.result{
+  min-height:72px;white-space:pre-wrap;overflow-wrap:anywhere;
+  background:#07130c;border:1px solid var(--border);
+  border-radius:10px;padding:15px;margin-top:12px;
+  line-height:1.8
+}
+.urdu{font-family:system-ui,"Noto Nastaliq Urdu",serif;font-size:21px;direction:rtl;text-align:right}
+.status{font-size:13px;color:var(--muted);margin-top:9px}
+.good{color:var(--green)}
+.error{color:var(--red)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.stat{background:var(--panel2);border:1px solid var(--border);border-radius:12px;padding:13px}
+.stat strong{display:block;color:var(--green);font-size:24px}
+.stat span{font-size:12px;color:var(--muted)}
+.word{
+  padding:13px 0;border-bottom:1px solid var(--border)
+}
+.word:last-child{border-bottom:0}
+.word b{color:var(--green);font-size:17px}
+.word .meaning{margin:5px 0;font-size:18px}
+.word .example{color:var(--muted);font-size:13px;line-height:1.6}
+.tag{
+  display:inline-block;padding:4px 8px;border:1px solid var(--border);
+  border-radius:20px;color:var(--green);font-size:11px;margin-bottom:8px
+}
+.bigword{font-size:30px;color:var(--green);font-weight:850}
+.hidden{display:none!important}
+footer{text-align:center;border-top:1px solid var(--border);padding:22px 12px;color:var(--muted);font-size:12px}
+a{color:var(--green)}
+@media(max-width:440px){
+  .grid{grid-template-columns:1fr}
+  .panel{padding:13px}
+  .navbtn{padding:9px 10px;font-size:13px}
+}
+</style>
+</head>
+
+<body>
+<header>
+  <div class="logo">MJ</div>
+  <h1>ENGLISH ↔ URDU</h1>
+  <p>Translator · Dictionary · Vocabulary Academy</p>
+  <div class="owner">MUHAMMAD JAMEER</div>
+  <p class="sub">Learn Every Day. Improve Every Word.</p>
+</header>
+
+<nav>
+  <button class="navbtn active" data-page="home">Translator</button>
+  <button class="navbtn" data-page="dictionary">Dictionary</button>
+  <button class="navbtn" data-page="learn">Daily Words</button>
+  <button class="navbtn" data-page="saved">My Words</button>
+  <button class="navbtn" data-page="quiz">Practice</button>
+</nav>
+
+<main>
+<section id="home" class="page">
+  <div class="grid">
+    <div class="stat"><strong id="savedCount">0</strong><span>Saved Words</span></div>
+    <div class="stat"><strong id="learnCount">0</strong><span>Words Marked Learned</span></div>
+  </div>
+
+  <div class="panel" style="margin-top:15px">
+    <h2>Translator</h2>
+    <p class="sub">English ya Urdu mein word ya poori line likho. Language khud select karo.</p>
+
+    <label for="direction" class="sub">Translation direction</label>
+    <select id="direction">
+      <option value="auto">Auto Detect</option>
+      <option value="en-ur">English → Urdu</option>
+      <option value="ur-en">Urdu → English</option>
+    </select>
+
+    <textarea id="source" placeholder="Type English or Urdu here... / Yahan likho"></textarea>
+
+    <div class="actions">
+      <button class="btn primary" id="translateBtn">Translate Now</button>
+      <button class="btn" id="swapBtn">⇄ Swap</button>
+      <button class="btn" id="clearBtn">Clear</button>
+    </div>
+
+    <div class="status" id="translateStatus" role="status">Ready to translate.</div>
+
+    <h3 style="margin-top:18px">Translation Result</h3>
+    <div id="translation" class="result">Your translation will appear here.</div>
+
+    <div class="actions">
+      <button class="btn" id="copyBtn">Copy Result</button>
+      <button class="btn" id="speakBtn">🔊 Listen</button>
+      <button class="btn" id="saveTranslationBtn">Save Word</button>
+    </div>
+    <p class="sub">Powered by MyMemory Translation API. Internet connection required.</p>
+  </div>
+</section>
+
+<section id="dictionary" class="page hidden">
+  <div class="panel">
+    <h2>English Dictionary</h2>
+    <p class="sub">English word ka meaning, definition, example aur Urdu translation dekho.</p>
+    <input id="dictInput" placeholder="Example: beautiful, honest, courage">
+    <button class="btn primary" id="dictBtn" style="width:100%">Find Meaning</button>
+    <div id="dictStatus" class="status" role="status"></div>
+    <div id="dictResult" style="margin-top:14px"></div>
+  </div>
+  <div class="panel">
+    <h3>Quick Search</h3>
+    <div class="actions">
+      <button class="btn quick" data-word="beautiful">Beautiful</button>
+      <button class="btn quick" data-word="honest">Honest</button>
+      <button class="btn quick" data-word="knowledge">Knowledge</button>
+      <button class="btn quick" data-word="success">Success</button>
+    </div>
+  </div>
+</section>
+
+<section id="learn" class="page hidden">
+  <div class="panel">
+    <span class="tag">DAILY VOCABULARY</span>
+    <h2>Learn New Words</h2>
+    <p class="sub">In words ko roz parho, examples samjho aur practice karo.</p>
+    <input id="vocabSearch" placeholder="Search a word or Urdu meaning...">
+    <div id="vocabList"></div>
+  </div>
+</section>
+
+<section id="saved" class="page hidden">
+  <div class="panel">
+    <h2>My Saved Words</h2>
+    <p class="sub">Apne pasandida words yahan save karo. Ye isi browser mein rehte hain.</p>
+    <button class="btn" id="exportBtn">Export My Words</button>
+    <div id="savedList" style="margin-top:12px"></div>
+  </div>
+</section>
+
+<section id="quiz" class="page hidden">
+  <div class="panel">
+    <span class="tag">PRACTICE MODE</span>
+    <h2>Test Your Vocabulary</h2>
+    <p class="sub">English word ka sahi Urdu meaning choose karo.</p>
+    <div class="result">
+      <div class="sub">WORD</div>
+      <div class="bigword" id="quizWord">Ready?</div>
+    </div>
+    <div id="quizOptions" class="actions" style="flex-direction:column"></div>
+    <div id="quizStatus" class="status" role="status"></div>
+    <div class="actions">
+      <button class="btn primary" id="nextQuiz">Next Question</button>
+    </div>
+    <p class="sub">Score: <strong id="score">0</strong></p>
+  </div>
+</section>
+</main>
+
+<footer>
+  Created By Muhammad Jameer Hacker King<br>
+  English Urdu Learning Hub · Learn Something New Every Day
+</footer>
+
+<script>
+"use strict";
+
+/* FREE API ENDPOINTS — no private API key included */
+const TRANSLATE_API = "https://api.mymemory.translated.net/get";
+const DICTIONARY_API = "https://api.dictionaryapi.dev/api/v2/entries/en/";
+
+const $ = id => document.getElementById(id);
+
+const words = [
+ {en:"Ability",ur:"صلاحیت",ex:"She has the ability to learn.",exur:"اس میں سیکھنے کی صلاحیت ہے۔"},
+ {en:"Accept",ur:"قبول کرنا",ex:"I accept your advice.",exur:"میں تمہارا مشورہ قبول کرتا ہوں۔"},
+ {en:"Achieve",ur:"حاصل کرنا",ex:"Work hard to achieve your goal.",exur:"اپنا مقصد حاصل کرنے کے لیے محنت کرو۔"},
+ {en:"Advice",ur:"مشورہ",ex:"Thank you for your advice.",exur:"تمہارے مشورے کا شکریہ۔"},
+ {en:"Beautiful",ur:"خوبصورت",ex:"This is a beautiful place.",exur:"یہ ایک خوبصورت جگہ ہے۔"},
+ {en:"Believe",ur:"یقین کرنا",ex:"Believe in yourself.",exur:"اپنے آپ پر یقین رکھو۔"},
+ {en:"Brave",ur:"بہادر",ex:"The brave boy helped others.",exur:"بہادر لڑکے نے دوسروں کی مدد کی۔"},
+ {en:"Calm",ur:"پرسکون",ex:"Stay calm and think.",exur:"پرسکون رہو اور سوچو۔"},
+ {en:"Careful",ur:"محتاط",ex:"Be careful on the road.",exur:"سڑک پر محتاط رہو۔"},
+ {en:"Change",ur:"تبدیل کرنا",ex:"Change your habits slowly.",exur:"اپنی عادتیں آہستہ آہستہ بدلو۔"},
+ {en:"Clever",ur:"ذہین",ex:"He is a clever student.",exur:"وہ ایک ذہین طالب علم ہے۔"},
+ {en:"Courage",ur:"ہمت",ex:"Courage helps us face problems.",exur:"ہمت مسائل کا سامنا کرنے میں مدد دیتی ہے۔"},
+ {en:"Create",ur:"بنانا",ex:"Create something useful.",exur:"کوئی مفید چیز بناؤ۔"},
+ {en:"Curious",ur:"متجسس",ex:"I am curious to learn English.",exur:"میں انگریزی سیکھنے کے لیے متجسس ہوں۔"},
+ {en:"Danger",ur:"خطرہ",ex:"Stay away from danger.",exur:"خطرے سے دور رہو۔"},
+ {en:"Decide",ur:"فیصلہ کرنا",ex:"Decide what you want to learn.",exur:"فیصلہ کرو کہ تم کیا سیکھنا چاہتے ہو۔"},
+ {en:"Dream",ur:"خواب",ex:"Never stop learning.",exur:"سیکھنا کبھی بند نہ کرو۔"},
+ {en:"Easy",ur:"آسان",ex:"This question is easy.",exur:"یہ سوال آسان ہے۔"},
+ {en:"Effort",ur:"کوشش",ex:"Your effort matters.",exur:"تمہاری کوشش اہم ہے۔"},
+ {en:"Encourage",ur:"حوصلہ افزائی کرنا",ex:"Teachers encourage students.",exur:"اساتذہ طلبہ کی حوصلہ افزائی کرتے ہیں۔"},
+ {en:"Enjoy",ur:"لطف اٹھانا",ex:"I enjoy reading books.",exur:"مجھے کتابیں پڑھنے میں لطف آتا ہے۔"},
+ {en:"Experience",ur:"تجربہ",ex:"Experience teaches us many things.",exur:"تجربہ ہمیں بہت سی چیزیں سکھاتا ہے۔"},
+ {en:"Faith",ur:"ایمان / یقین",ex:"Have faith and keep trying.",exur:"یقین رکھو اور کوشش جاری رکھو۔"},
+ {en:"Freedom",ur:"آزادی",ex:"Everyone values freedom.",exur:"ہر شخص آزادی کی قدر کرتا ہے۔"},
+ {en:"Friendly",ur:"دوستانہ",ex:"He is friendly with everyone.",exur:"وہ سب کے ساتھ دوستانہ رویہ رکھتا ہے۔"},
+ {en:"Goal",ur:"مقصد",ex:"My goal is to learn English.",exur:"میرا مقصد انگریزی سیکھنا ہے۔"},
+ {en:"Grateful",ur:"شکر گزار",ex:"I am grateful for your help.",exur:"میں تمہاری مدد کے لیے شکر گزار ہوں۔"},
+ {en:"Habit",ur:"عادت",ex:"Reading is a good habit.",exur:"پڑھنا ایک اچھی عادت ہے۔"},
+ {en:"Honest",ur:"ایماندار",ex:"Always be honest.",exur:"ہمیشہ ایماندار رہو۔"},
+ {en:"Hope",ur:"امید",ex:"Never lose hope.",exur:"کبھی امید نہ چھوڑو۔"},
+ {en:"Improve",ur:"بہتر بنانا",ex:"Practice to improve your English.",exur:"اپنی انگریزی بہتر بنانے کے لیے مشق کرو۔"},
+ {en:"Important",ur:"اہم",ex:"Education is important.",exur:"تعلیم اہم ہے۔"},
+ {en:"Knowledge",ur:"علم",ex:"Knowledge gives us power.",exur:"علم ہمیں طاقت دیتا ہے۔"},
+ {en:"Learn",ur:"سیکھنا",ex:"I learn something every day.",exur:"میں ہر روز کچھ نہ کچھ سیکھتا ہوں۔"},
+ {en:"Mistake",ur:"غلطی",ex:"Learn from every mistake.",exur:"ہر غلطی سے سیکھو۔"},
+ {en:"Opportunity",ur:"موقع",ex:"This is a good opportunity.",exur:"یہ ایک اچھا موقع ہے۔"},
+ {en:"Patient",ur:"صبر کرنے والا",ex:"Be patient while learning.",exur:"سیکھتے وقت صبر کرو۔"},
+ {en:"Peace",ur:"امن",ex:"We all want peace.",exur:"ہم سب امن چاہتے ہیں۔"},
+ {en:"Polite",ur:"باادب",ex:"Be polite to others.",exur:"دوسروں کے ساتھ ادب سے پیش آؤ۔"},
+ {en:"Practice",ur:"مشق",ex:"Practice English every day.",exur:"ہر روز انگریزی کی مشق کرو۔"},
+ {en:"Respect",ur:"عزت کرنا",ex:"Respect everyone.",exur:"ہر شخص کی عزت کرو۔"},
+ {en:"Success",ur:"کامیابی",ex:"Hard work leads to success.",exur:"محنت کامیابی کی طرف لے جاتی ہے۔"},
+ {en:"Trust",ur:"بھروسا",ex:"Trust takes time to build.",exur:"بھروسا قائم ہونے میں وقت لگتا ہے۔"},
+ {en:"Useful",ur:"مفید",ex:"This lesson is useful.",exur:"یہ سبق مفید ہے۔"},
+ {en:"Wisdom",ur:"دانائی",ex:"Wisdom comes with learning.",exur:"سیکھنے سے دانائی آتی ہے۔"}
+];
+
+function readStore(key, fallback){
+ try {
+   const v = localStorage.getItem(key);
+   return v === null ? fallback : JSON.parse(v);
+ } catch { return fallback; }
+}
+let saved = readStore("jameer_saved_words", []);
+let learned = readStore("jameer_learned_words", []);
+let score = 0;
+let currentQuiz = null;
+let quizLocked = false;
+let lastTranslation = "";
+let lastDirection = "ur";
+
+function persist(){
+ try {
+   localStorage.setItem("jameer_saved_words",JSON.stringify(saved));
+   localStorage.setItem("jameer_learned_words",JSON.stringify(learned));
+ } catch(e) {
+   console.warn("Local storage unavailable",e);
+ }
+ updateStats();
+}
+function updateStats(){
+ $("savedCount").textContent = saved.length;
+ $("learnCount").textContent = learned.length;
+}
+function hasUrdu(text){
+ return /[\u0600-\u06FF]/.test(text);
+}
+function setStatus(id,msg,type=""){
+ $(id).textContent = msg;
+ $(id).className = "status " + type;
+}
+function escapeHTML(value){
+ return String(value).replace(/[&<>"']/g,c=>({
+  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+ }[c]));
+}
+function makePair(en,ur){
+ return en + "||" + ur;
+}
+function isSaved(en,ur){
+ return saved.some(w=>w.en.toLowerCase()===en.toLowerCase() && w.ur===ur);
+}
+function saveWord(en,ur,ex="",exur=""){
+ en=String(en||"").trim(); ur=String(ur||"").trim();
+ if(!en || !ur) return;
+ if(isSaved(en,ur)){alert("Ye word pehle se saved hai.");return;}
+ saved.unshift({en,ur,ex,exur});
+ persist();
+ renderSaved();
+ alert("Word saved!");
+}
+function toggleLearn(en){
+ if(learned.includes(en)) learned=learned.filter(w=>w!==en);
+ else learned.push(en);
+ persist();
+ renderVocab($("vocabSearch").value);
+ renderSaved();
+}
+function speak(text,lang){
+ if(!("speechSynthesis" in window)){
+  alert("Is browser mein speech feature available nahi hai.");return;
+ }
+ speechSynthesis.cancel();
+ const utterance=new SpeechSynthesisUtterance(text);
+ utterance.lang=lang;
+ speechSynthesis.speak(utterance);
+}
+
+async function translateText(){
+ const text=$("source").value.trim();
+ if(!text){setStatus("translateStatus","Pehle koi word ya line likho.","error");return;}
+ const direction=$("direction").value;
+ let pair=direction;
+ if(direction==="auto") pair=hasUrdu(text)?"ur-en":"en-ur";
+ const [from,to]=pair.split("-");
+ const btn=$("translateBtn");
+ btn.disabled=true;
+ setStatus("translateStatus","Translation ho rahi hai...");
+ $("translation").textContent="Please wait...";
+ try{
+  const url=TRANSLATE_API+"?q="+encodeURIComponent(text)+"&langpair="+encodeURIComponent(from+"|"+to);
+  const response=await fetch(url);
+  if(!response.ok) throw new Error("HTTP "+response.status);
+  const data=await response.json();
+  if(data.responseStatus!==200 || !data.responseData?.translatedText){
+   throw new Error(data.responseDetails||"Translation service ne result nahi diya.");
+  }
+  lastTranslation=data.responseData.translatedText;
+  lastDirection=to;
+  $("translation").textContent=lastTranslation;
+  $("translation").classList.toggle("urdu",to==="ur");
+  setStatus("translateStatus","Translation successful.","good");
+ }catch(e){
+  $("translation").textContent="Translation abhi nahi ho saki. Internet check karo ya kuch dair baad try karo.";
+  setStatus("translateStatus","API error: "+e.message,"error");
+ }finally{
+  btn.disabled=false;
+ }
+}
+
+async function dictionarySearch(){
+ const word=$("dictInput").value.trim();
+ if(!word){setStatus("dictStatus","Pehle English word likho.","error");return;}
+ if(hasUrdu(word)){
+  setStatus("dictStatus","Dictionary English words ke liye hai. Urdu word ka English tarjuma Translator se karo.","error");
+  return;
+ }
+ setStatus("dictStatus","Meaning search ho raha hai...");
+ $("dictResult").innerHTML="";
+ try{
+  const response=await fetch(DICTIONARY_API+encodeURIComponent(word.toLowerCase()));
+  if(!response.ok) throw new Error("Is word ki definition nahi mili.");
+  const data=await response.json();
+  const entry=data[0];
+  const phonetic=entry.phonetic || "";
+  let html="<div class='word'><b>"+escapeHTML(entry.word)+"</b>";
+  if(phonetic) html+=" <span class='sub'>"+escapeHTML(phonetic)+"</span>";
+  html+="</div>";
+  let count=0;
+  for(const meaning of entry.meanings||[]){
+   html+="<div class='word'><span class='tag'>"+escapeHTML(meaning.partOfSpeech||"Meaning")+"</span>";
+   for(const def of (meaning.definitions||[]).slice(0,3)){
+    html+="<p>"+escapeHTML(def.definition)+"</p>";
+    if(def.example) html+="<p class='example'>Example: "+escapeHTML(def.example)+"</p>";
+    count++;
+   }
+   html+="</div>";
+   if(count>=6) break;
+  }
+  html+="<div class='actions'><button class='btn primary' id='dictTranslate'>Urdu Meaning</button></div>";
+  $("dictResult").innerHTML=html;
+  $("dictTranslate").onclick=async()=>{
+   try{
+    const r=await fetch(TRANSLATE_API+"?q="+encodeURIComponent(entry.word)+"&langpair=en%7Cur");
+    const d=await r.json();
+    if(d.responseStatus!==200) throw new Error("Translation unavailable");
+    const box=document.createElement("div");
+    box.className="result urdu";
+    box.textContent=d.responseData.translatedText;
+    $("dictResult").appendChild(box);
+    const saveBtn=document.createElement("button");
+    saveBtn.className="btn";
+    saveBtn.textContent="Save Word";
+    saveBtn.style.marginTop="8px";
+    saveBtn.onclick=()=>saveWord(entry.word,d.responseData.translatedText);
+    $("dictResult").appendChild(saveBtn);
+   }catch(e){setStatus("dictStatus","Urdu meaning abhi nahi mila.","error");}
+  };
+  setStatus("dictStatus","Definition mil gayi.","good");
+ }catch(e){
+  setStatus("dictStatus",e.message+" Internet check karo.","error");
+ }
+}
+
+function renderVocab(filter=""){
+ const q=filter.trim().toLowerCase();
+ const list=words.filter(w=>(w.en+" "+w.ur).toLowerCase().includes(q));
+ if(!list.length){
+  $("vocabList").innerHTML="<p class='sub'>Koi matching word nahi mila.</p>";return;
+ }
+ $("vocabList").innerHTML=list.map(w=>`
+  <div class="word">
+   <b>${escapeHTML(w.en)}</b>
+   <div class="meaning urdu">${escapeHTML(w.ur)}</div>
+   <div class="example">${escapeHTML(w.ex)}</div>
+   <div class="example urdu">${escapeHTML(w.exur)}</div>
+   <div class="actions">
+    <button class="btn" data-save="${escapeHTML(w.en)}">Save</button>
+    <button class="btn" data-learn="${escapeHTML(w.en)}">${learned.includes(w.en)?"Learned ✓":"Mark Learned"}</button>
+    <button class="btn" data-speak="${escapeHTML(w.en)}">Listen</button>
+   </div>
+  </div>`).join("");
+}
+function renderSaved(){
+ if(!saved.length){
+  $("savedList").innerHTML="<p class='sub'>Abhi koi saved word nahi. Daily Words se save karo.</p>";return;
+ }
+ $("savedList").innerHTML=saved.map((w,i)=>`
+  <div class="word">
+   <b>${escapeHTML(w.en)}</b>
+   <div class="meaning urdu">${escapeHTML(w.ur)}</div>
+   ${w.ex?`<div class="example">${escapeHTML(w.ex)}</div>`:""}
+   ${w.exur?`<div class="example urdu">${escapeHTML(w.exur)}</div>`:""}
+   <button class="btn" data-remove="${i}">Remove</button>
+  </div>`).join("");
+}
+
+function newQuiz(){
+ quizLocked=fal
